@@ -3,57 +3,101 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
-  const [showContent, setShowContent] = useState(false);
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
 
-  const handleClick = () => {
-    setShowContent(true);
+  const handleClick = (value) => {
+    setInput((prev) => prev + value);
   };
 
-  const handleBack = () => {
-    setShowContent(false);
+  const handleClear = () => {
+    setInput('');
+    setResult('');
+  };
+
+  const handleCalculate = () => {
+    try {
+      setResult(eval(input));
+    } catch (error) {
+      setResult('Error');
+    }
   };
 
   return (
     <div className="app-container d-flex justify-content-center align-items-center">
-      <div className="container-fluid">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6 bg-dark text-white p-4 rounded">
-            {!showContent ? (
-              <div className="left-section text-center" onClick={handleClick}>
-                <h1>Math Web</h1>
-                <p>Explore the beauty of mathematics through interactive visualizations and engaging content.</p>
-              </div>
-            ) : (
-              <div className="content-section">
-                <button className="btn btn-warning mb-4" onClick={handleBack}>Back</button>
-                <div className="row">
-                  <div className="col-md-6 mb-3">
-                    <div className="equation-container p-3 bg-secondary rounded">
-                      <h2>Mathematical Formulas</h2>
-                      <ul className="list-unstyled">
-                        <li>Pythagorean Theorem: a² + b² = c²</li>
-                        <li>Quadratic Formula: x = (-b ± √(b² - 4ac)) / 2a</li>
-                        <li>Euler's Identity: e^(iπ) + 1 = 0</li>
-                        <li>Area of a Circle: A = πr²</li>
-                        <li>Derivative of e^x: d/dx(e^x) = e^x</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <div className="famous-works p-3 bg-secondary rounded">
-                      <h2>Famous Mathematical Works</h2>
-                      <ul className="list-unstyled">
-                        <li>Euclid's Elements</li>
-                        <li>Isaac Newton's Principia Mathematica</li>
-                        <li>Carl Friedrich Gauss's Disquisitiones Arithmeticae</li>
-                        <li>Leonhard Euler's Introductio in analysin infinitorum</li>
-                        <li>René Descartes' La Géométrie</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+      <div className="calculator bg-dark text-white p-4 rounded">
+        <h1 className="text-center mb-4">Calculator</h1>
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            value={input}
+            readOnly
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            value={result}
+            readOnly
+            placeholder="Result"
+          />
+        </div>
+        <div className="row">
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('1')}>1</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('2')}>2</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('3')}>3</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-warning w-100 mb-2" onClick={() => handleClick('+')}>+</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('4')}>4</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('5')}>5</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('6')}>6</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-warning w-100 mb-2" onClick={() => handleClick('-')}>-</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('7')}>7</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('8')}>8</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('9')}>9</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-warning w-100 mb-2" onClick={() => handleClick('*')}>*</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <button className="btn btn-secondary w-100 mb-2" onClick={() => handleClick('0')}>0</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-danger w-100 mb-2" onClick={handleClear}>C</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-success w-100 mb-2" onClick={handleCalculate}>=</button>
+          </div>
+          <div className="col">
+            <button className="btn btn-warning w-100 mb-2" onClick={() => handleClick('/')}>/</button>
           </div>
         </div>
       </div>
